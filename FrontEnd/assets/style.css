@@ -197,6 +197,11 @@ input[type="submit"]{
 	margin: 3em 0;
 }
 
+.button-active{
+	background-color: #1D6154;
+	color: white;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
