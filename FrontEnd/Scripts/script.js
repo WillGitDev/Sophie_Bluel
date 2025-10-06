@@ -66,13 +66,13 @@ async function createGallery(category = "all"){
     let worksFilter = [];
 
     if(category !== "all"){
-        let workTemp = [];
+        //let workTemp = [];
         for(let i = 0; i < works.length; i++){
             if(works[i].category.name === category){
                 /*workTemp.push(works[i]);
                 worksFilter = [...workTemp];*/
                 worksFilter.push(works[i]);
-                
+
             };
         };
         

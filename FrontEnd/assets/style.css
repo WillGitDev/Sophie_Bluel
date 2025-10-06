@@ -208,3 +208,42 @@ footer nav ul {
 	margin: 2em
 }
 
+/*Page de login*/
+
+
+#contact {
+	width: 50%;
+margin: auto;
+}
+#login > * {
+	text-align: center;
+
+}
+#login h1{
+	margin-bottom: 20px;
+}
+#login form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+	width: 380px;
+}
+
+#login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login label {
+	margin: 2em 0 1em 0;
+}
+section{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.link-login{
+	color: black;
+}
