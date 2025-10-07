@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
         rel="stylesheet">
     <meta name="description" href="./assets/style.css">
-    <link rel="stylesheet" href="./assets/style.css">
-    <script src="Scripts/script.js" defer></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="Scripts/pages/login.js" type="module" defer></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
             <ul>
                 <li>projets</li>
                 <li>contact</li>
-                <li>login</li>
+                <li id="link-login">login</li>
                 <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
             </ul>
         </nav>
@@ -30,9 +30,10 @@
             <h1>Log in</h1>
             <form action="#" method="post">
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
                 <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" required>
+                <div id="error-message">Combinaisons e-mail/Mot de passe incorrecte</div>
                 <input type="submit" value="Se connecter">
             </form>
             <a class="link-login" href="#">Mot de passe oublié</a>

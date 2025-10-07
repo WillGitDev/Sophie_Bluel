@@ -10,18 +10,22 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
-	<script src="Scripts/script.js" defer></script>
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<script src="Scripts/pages/index.js" type="module" defer></script>
+	<script src="Scripts/auth/auth.js" defer></script>
+	<script src="https://kit.fontawesome.com/fbdaa604ff.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+	<div id="auth-indicator"><i class="fa-regular fa-pen-to-square logo-style"></i>Mode d'édition</div>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
-				<li>login</li>
+				<li><a id="link-login" href="login.html">login</a><span id="link-logout">logout</span></li>
+
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -43,7 +47,13 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<div class="edit-container">
+				<h2>Mes Projets</h2>
+				<div id="edit">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<a href="#">modifier</a>
+				</div>
+			</div>
 			<div class="filter">
 			</div>
 			<div class="gallery">

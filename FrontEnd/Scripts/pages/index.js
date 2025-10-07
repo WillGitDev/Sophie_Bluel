@@ -1,55 +1,7 @@
-/**
- * @typedef {Object} Work
- * @property {{ id: number, name: string }} category
- * @property {number} id
- * @property {string} imageUrl
- * @property {string} title
- * @property {number} userId
- */
+import { getWorks, getCategories } from '../api/api.js';
 
 const gallery = document.getElementsByClassName("gallery")[0];
 const filterContainer = document.getElementsByClassName("filter")[0];
-const apiGetWorks = "http://localhost:5678/api/works";
-const apiGetCategories = "http://localhost:5678/api/categories";
-
-/**
- * Retourne tous les travaux de l'architecte
- * 
- * @returns {Promise<Work[]>} - Retourne une promesse contenant un tableau des travaux de l'architecte.
- */
-async function getWorks(){
-    try{
-        const response = await fetch(apiGetWorks);
-        const data = await response.json();
-        return data;
-    }
-    catch(error){
-        console.error("Erreur :", error);
-    };
-};
-
-/**
- * 
- * @async
- * @function getCategories
- * @returns {Promise<Array<object>>} Retourne une promesse contenant un tableau des catégories.
- */
-async function getCategories(){
-    try{
-        const response = await fetch(apiGetCategories);
-        const data = await response.json();
-        return data;
-    }
-    catch(error){
-        console.error("Erreur :", error);
-    }
-}
-
-/*getWorks().then(data => {
-    console.log(data);
-    console.log(typeof data);
-    console.log(Array.isArray(data));
-});*/
 
 /**
  * Affiche dynamiquement les travaux. Si aucun paramètre de catégorie n'est
@@ -116,7 +68,6 @@ async function createButtonCategories(){
     button.addEventListener("click", (event)=>{
         classActiveButton(event);
         createGallery("all");
-
     });
 
     for(let i = 0; i < categories.length; i++){
@@ -147,7 +98,19 @@ function classActiveButton(event){
     event.target.classList.add("button-active");
 }
 
+/**
+ * logout permet d'attacher un eventListener au logout dans la navigation pour déconnecter l'utilisateur.
+ */
+function logout(){
+    const logout = document.querySelector("#link-logout");
+    logout.addEventListener("click", () => {
+        sessionStorage.removeItem("Bearer");
+        location.reload();
+    });
+};
 
+
+logout();
 createGallery();
 createButtonCategories();
 
