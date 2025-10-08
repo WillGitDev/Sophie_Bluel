@@ -3,7 +3,9 @@ import {loginConnection} from '../api/api.js';
 const loginLink = document.getElementById("link-login");
 loginLink.style.fontWeight = "700";
 
+
 const formLogin = document.querySelector("#login form");
+
     formLogin.addEventListener("submit",async (event) => {
         event.preventDefault();
         const email = event.target.querySelector("[name=email]").value;
@@ -17,6 +19,11 @@ const formLogin = document.querySelector("#login form");
         validateConnection(connectionInfo);
     });
 
+/**
+ * Gestion de la réponse pour la tentative de connexion.
+ * Si l'authentification est réussie, cette fonction stocke le token et redirige l'utilisateur vers la page d'acceuil.
+ * @param {Array<{isAuthenticated: boolean, token: string}>} connectionInfo 
+ */
 function validateConnection(connectionInfo){
     const errorMessage = document.getElementById("error-message");
 

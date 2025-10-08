@@ -7,8 +7,6 @@ const filterContainer = document.getElementsByClassName("filter")[0];
  * Affiche dynamiquement les travaux. Si aucun paramètre de catégorie n'est
  * spécifié, tous les travaux sont affichés.
  * 
- * @async
- * @function createGallery
  * @param {string} [category="all"] - Nom de la catégorie à filtrer. Si aucune valeur n'est fournie tous les travaux sont affichés.
  * @returns {Promise<void>} Ne retourne rien, mais modifie le DOM.
  */
@@ -53,8 +51,6 @@ async function createGallery(category = "all"){
 /**
  * Création dynamique des boutons des filtres à partir des catégories.
  * 
- * @async
- * @function createButtonCategories
  * @return {Promise<void>} ne retourne rien mais modifie le DOM.
  */
 async function createButtonCategories(){
@@ -109,6 +105,39 @@ function logout(){
     });
 };
 
+
+/*Code pour la modale*/
+
+let modal = null;
+
+document.querySelector(".js-modal").addEventListener("click", openModal);
+
+function openModal(e){
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute("href"));
+    target.style.display = "flex";
+    target.setAttribute("aria-hidden", "false");
+    target.setAttribute("aria-modal", "true");
+    modal = target;
+    modal.addEventListener("click", closeModal);
+    modal.querySelector("#xmark-modal").addEventListener("click", closeModal);
+    modal.querySelector(".modal-wrapper").addEventListener("click", stopModalPropagation);
+    
+}
+
+function closeModal(e){
+    if(modal === null) return; 
+    e.preventDefault();
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    modal.setAttribute("aria-modal", "false");
+    modal.querySelector("#xmark-modal").removeEventListener("click", closeModal);
+    modal.querySelector(".modal-wrapper").removeEventListener("click", stopModalPropagation);
+}
+
+function stopModalPropagation(e){
+    e.stopPropagation();
+}
 
 logout();
 createGallery();
