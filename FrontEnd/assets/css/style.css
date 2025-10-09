@@ -282,7 +282,7 @@ margin: auto;
 	display: none;
 }
 
-#error-message{
+.error-message{
 	display: none;
 	color: red;
 	font-weight: 600;
@@ -329,15 +329,45 @@ margin: auto;
 
 .modal-wrapper{
 	position: relative;
+	background-color: white;
+	width: 630px;
+	height: 690px;
+	padding: 2% 5%;
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+#modal-gallery{
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	box-sizing: border-box;
-	padding: 5% 8%;
-	width: 630px;
-	height: 690px;
-	background-color: white;
-	border-radius: 10px;
+	height: 100%;
+}
+
+#gallery-content-modal{
+	display: flex;
+	justify-content: flex-start;
+	align-content: flex-start;
+	gap: 30px 10px;
+	flex-wrap: wrap;
+	height: 75%;
+	width: 100%;
+	border-bottom: 1px solid grey;
+	margin: 35px 0;
+
+}
+
+#gallery-content-modal figure{
+	position: relative;
+	width: calc(20% - 8px);
+	height: 100px;
+}
+
+#gallery-content-modal img{
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
 }
 
 #xmark-modal{
@@ -347,18 +377,11 @@ margin: auto;
 	font-size: 20px;
 }
 
-#gallery-content-modal{
-	height: 75%;
-	width: 100%;
-	border: 1px solid grey;
-	margin: 35px 0;
-}
-
 #add-picture{
 	width: 40%;
 }
 
-#title-modal{
+.title-modal{
 	color: black;
 	font-weight: 400;
 	font-family: 'work sans';
@@ -369,4 +392,28 @@ margin: auto;
 	height: 40px;
 	width: 50%;
 	margin: 0;
+	margin-top: 10px;
+}
+
+.trash-container{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 25px;
+	height: 25px;
+	background-color: black;
+	border-radius: 4px;
+}
+
+.trash-style{
+	color: white;
+	font-size: 13px;
+}
+
+.error-gallery{
+	color: black;
+	text-align: center;
 }

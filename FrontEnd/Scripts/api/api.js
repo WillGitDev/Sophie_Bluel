@@ -1,6 +1,7 @@
 const apiGetWorks = "http://localhost:5678/api/works";
 const apiGetCategories = "http://localhost:5678/api/categories";
 const apiPostUsers = "http://localhost:5678/api/users/login";
+const apiDeleteWork = "http://localhost:5678/api/works/";
 
 /**
  * Récupère tous les travaux de l'architecte
@@ -11,6 +12,7 @@ export async function getWorks(){
     try{
         const response = await fetch(apiGetWorks);
         const data = await response.json();
+        console.log(data);
         return data;
     }
     catch(error){
@@ -49,6 +51,30 @@ export async function loginConnection(loginInfo){
         });
         const data = await response.json();
         return {isAuthenticated: response.ok, token: data.token};
+    }
+    catch(error){
+        console.error("Erreur :", error);
+    }
+}
+
+/**
+ * Supprime l'élément avec l'id et un token valide,
+ * si la suppression à échoué la fonction retourne un
+ * booléan(true: réussie, false: échouer)
+ * 
+ * @param {Number} id l'id du travail à supprimer
+ * @param {String} token le token pour la connexion
+ * @returns 
+ */
+export async function deleteWorksById(id, token){
+    try{
+        const response = await fetch(apiDeleteWork + id, {
+            method: "DELETE",
+            headers: { "accept" : "*/*",
+                "Authorization" : `Bearer ${token}`
+            }
+        });
+        return response.ok;
     }
     catch(error){
         console.error("Erreur :", error);
