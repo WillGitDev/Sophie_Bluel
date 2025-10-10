@@ -370,10 +370,20 @@ margin: auto;
 	width: 100%;
 }
 
-#xmark-modal{
+.button-close{
+	background: none;
+	border: none;
+	color: black;
+	height: 20px;
+	width: 20px;
+	margin: 0;
+	padding: 0;
 	position: absolute;
 	top: 25px;
 	right: 25px;
+}
+
+#xmark-modal{
 	font-size: 20px;
 }
 
@@ -416,4 +426,11 @@ margin: auto;
 .error-gallery{
 	color: black;
 	text-align: center;
+}
+
+
+/*Style provisoire*/
+
+*:focus{
+	box-shadow: 0 0 20px rgb(19, 119, 49);		
 }

@@ -25,7 +25,7 @@ const formLogin = document.querySelector("#login form");
  * @param {Array<{isAuthenticated: boolean, token: string}>} connectionInfo 
  */
 function validateConnection(connectionInfo){
-    const errorMessage = document.getElementById("error-message");
+    const errorMessage = document.getElementsByClassName("error-message")[0];
 
     if(connectionInfo.isAuthenticated){
         sessionStorage.setItem("Bearer", connectionInfo.token);
