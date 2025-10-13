@@ -4,15 +4,21 @@ import {} from '../api/api.js';
 let modal = null;
 let previouslyFocusedElement = null; // Pour sauvegarder l'élément actif.
 document.querySelector(".js-modal").addEventListener("click", openModal);
-const galleryModal = document.getElementById("gallery-content-modal");
+const galleryContainer = document.getElementById("gallery-content-modal");
+const galleryModal = document.getElementById("modal-gallery");
+const addWorkModal = document.getElementById("modal-add-work");
 const focusableSelector = 'button, a, input, textarea';
 let focusables = [];
+
+
+
 /**
  * Affiche la modale en modifiant les différents style CSS et attribut du HTML.
  * @param {event} e 
  */
 export function openModal(e){
     e.preventDefault();
+
     previouslyFocusedElement = document.activeElement;
     modal = document.querySelector(e.target.getAttribute("href"));
     console.log(modal);
@@ -23,7 +29,7 @@ export function openModal(e){
     modal.addEventListener("click", closeModalOnClickOutside);
     modal.querySelector(".button-close").addEventListener("click", closeModal);
     modal.querySelector(".modal-wrapper").addEventListener("click", stopModalPropagation);
-    createGallery(galleryModal, "all", false, true);
+    createGallery(galleryContainer, "all", false, true);
     focusables[0].focus();
 }
 
@@ -34,6 +40,8 @@ export function openModal(e){
  */
 export function closeModal(e){
     if(modal === null) return;
+    galleryModal.style.display = "flex";
+    addWorkModal.style.display = "none";
     if(previouslyFocusedElement){
         previouslyFocusedElement.focus();
     }
@@ -90,3 +98,14 @@ function closeModalOnClickOutside(e){
         closeModal(e);
     };
 };
+
+function buttonAddPicture(){
+    const buttonAddPicture = document.getElementById("add-picture");
+
+    buttonAddPicture.addEventListener("click", () => {
+        galleryModal.style.display = "none";
+        addWorkModal.style.display = "flex";
+    });
+};
+
+buttonAddPicture();

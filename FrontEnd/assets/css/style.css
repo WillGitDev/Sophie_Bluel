@@ -155,7 +155,7 @@ margin: auto;
 	flex-direction: column;
 }
 
-#contact input {
+input,select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -254,12 +254,6 @@ margin: auto;
 	width: 380px;
 }
 
-#login input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
 #login label {
 	margin: 2em 0 1em 0;
 }
@@ -313,7 +307,7 @@ margin: auto;
 	margin-right: 10px;
 }
 
-/*Modal*/
+/*Modal gallery*/
 
 .modal{
 	position: fixed;
@@ -371,6 +365,12 @@ margin: auto;
 }
 
 .button-close{
+	position: absolute;
+	top: 25px;
+	right: 25px;
+}
+
+.button-top-modal{
 	background: none;
 	border: none;
 	color: black;
@@ -378,9 +378,6 @@ margin: auto;
 	width: 20px;
 	margin: 0;
 	padding: 0;
-	position: absolute;
-	top: 25px;
-	right: 25px;
 }
 
 #xmark-modal{
@@ -396,6 +393,7 @@ margin: auto;
 	font-weight: 400;
 	font-family: 'work sans';
 	font-size: 26px;
+	margin-top: 40px;
 }
 
 #add-picture{
@@ -428,7 +426,77 @@ margin: auto;
 	text-align: center;
 }
 
+/*modal add picture*/
 
+#modal-add-work{
+	display: none;
+	flex-direction: column;
+	/*justify-content: space-around;*/
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.button-return{
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 25px;
+	left: 25px;
+	width: 30px;
+	height: 30px;
+}
+
+
+#arrow-left{
+	font-size: 23px;
+}
+
+#add-img-info{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #E8F1F6;
+	margin-top: 25px;
+	height: 30%;
+}
+
+#form-add-photo{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+#logo-picture{
+	font-size: 60px;
+	color: #B9C5CC;
+}
+
+#add-photo{
+	background-color: #B9C5CC;
+	color: #306685;
+	border: none;
+	height: 35px;
+	margin: 5px 0;
+}
+
+#form-add-photo input[type="submit"]{
+	background-color: #A7A7A7;
+	height: 30px;
+	font-size: 14px;
+}
+
+#form-add-photo label{
+	margin: 2em 0 1em 0;
+}
+
+#border{
+	margin-top: 45px;
+	border-top: 1px solid gray;
+}
 /*Style provisoire*/
 
 *:focus{

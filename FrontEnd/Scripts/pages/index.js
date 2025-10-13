@@ -62,7 +62,6 @@ function logout(){
     });
 };
 
-/* modal */
 
 logout();
 createGallery(gallery);
