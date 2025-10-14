@@ -92,20 +92,26 @@
 				</button>
 
 				<form id="form-add-photo">
-					<div id="add-img-info">
-						<i id="logo-picture" class="fa-regular fa-image"></i>
-						<button id="add-photo" type="button">+ Ajouter photo</button>
-						<p id="limit-message">jpg, png : 4mo max</p>
+					<div id="container-add-photo">
+						<div id="photo-selected">
+						</div>
+						<div id="select-photo">
+							<i id="logo-picture" class="fa-regular fa-image"></i>
+							<button id="add-photo" type="button">+ Ajouter photo</button>
+							<input id="input-img" type="file" accept=".jpeg, .png" style="display: none">
+							<p id="limit-message">jpg, png : 4mo max</p>
+							<p class="error-message error-add-photo"></p>
+						</div>
 					</div>
 					<label for="title-img">Titre</label>
 					<input type="text" id="title-img" name="title-img">
 					<label for="category">Catégorie</label>
 					<select name="category" id="category">
-						<option value="catUn">CatUn</option>
-						<option value="catDeux">CatDeux</option>
 					</select>
 					<div id="border"></div>
-					<input type="submit" value="Valider">
+					<input id="button-add-work" type="submit" value="Valider">
+					<p class="error-message error-form">
+					</p>
 				</form>
 			</div>
 		</div>

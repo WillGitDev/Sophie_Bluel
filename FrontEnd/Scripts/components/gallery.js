@@ -58,17 +58,17 @@ export async function createGallery(container, category = "all", isFigCaption = 
  * @param {event} e 
  */
 async function handleDeleteClick(e){
+    const galleryModal = document.getElementById("gallery-content-modal");
     const errorMessage = document.querySelector(".error-gallery");
     errorMessage.style.display = "none";
     const target = e.currentTarget.getAttribute("data-id");
     const token = sessionStorage.getItem("Bearer");
     const isDelete = await deleteWorksById(target, token);
-
     if(!isDelete){
         errorMessage.style.display = "flex";
         
     }else{
-        e.currentTarget.parentElement.remove();
+        await createGallery(galleryModal, "all", false, true);
     }
     
 }

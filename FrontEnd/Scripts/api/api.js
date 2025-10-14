@@ -2,6 +2,7 @@ const apiGetWorks = "http://localhost:5678/api/works";
 const apiGetCategories = "http://localhost:5678/api/categories";
 const apiPostUsers = "http://localhost:5678/api/users/login";
 const apiDeleteWork = "http://localhost:5678/api/works/";
+const apiAddWork = "http://localhost:5678/api/works";
 
 /**
  * Récupère tous les travaux de l'architecte
@@ -12,7 +13,6 @@ export async function getWorks(){
     try{
         const response = await fetch(apiGetWorks);
         const data = await response.json();
-        console.log(data);
         return data;
     }
     catch(error){
@@ -78,5 +78,26 @@ export async function deleteWorksById(id, token){
     }
     catch(error){
         console.error("Erreur :", error);
-    }
-}
+    };
+};
+
+/**
+ * Ajoute un nouveau travail de l'architecte.
+ * 
+ * @param {string} token le token dans session storage.
+ * @param {FormData} formData le formData contenant toute les informations sur le travail à ajouter.
+ */
+export async function addWork(token, formData){
+    try{
+        const response = await fetch(apiAddWork, {
+            method: "POST",
+            headers: {
+                "accept" : "application/json",
+                "Authorization" : `Bearer ${token}`
+            },
+            body: formData
+        });
+    }catch(error){
+        console.error("Erreur : ", error);
+    };
+};

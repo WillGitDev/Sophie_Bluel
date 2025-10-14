@@ -66,5 +66,3 @@ function logout(){
 logout();
 createGallery(gallery);
 createButtonCategories();
-
-

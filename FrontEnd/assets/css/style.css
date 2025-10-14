@@ -277,16 +277,20 @@ margin: auto;
 }
 
 .error-message{
+	color: #D8000C;
+	background-color: #FFD2D2;
+	border: 1px solid #D8000C;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.error-login{
 	display: none;
-	color: red;
-	font-weight: 600;
 	justify-content: center;
 	align-items: center;
-	background-color: #eef8f6;
 	width: auto;
 	height: 50px;
-	border: 2px solid rgb(236, 74, 74);
-	border-radius: 20px;
 	padding: 20px;
 	margin-top: 40px;
 }
@@ -453,14 +457,23 @@ margin: auto;
 	font-size: 23px;
 }
 
-#add-img-info{
+#container-add-photo{
+	background-color: #E8F1F6;
+	margin-top: 25px;
+	height: 170px;
+}
+
+#select-photo{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: #E8F1F6;
-	margin-top: 25px;
-	height: 30%;
+	height: 100%;
+	width: 100%;
+}
+
+#photo-selected{
+	display: none;
 }
 
 #form-add-photo{
@@ -496,6 +509,28 @@ margin: auto;
 #border{
 	margin-top: 45px;
 	border-top: 1px solid gray;
+}
+
+#photo-selected{
+	height: 100%;
+	width: 100%;
+	justify-content: center;
+}
+
+#photoContainer{
+	object-fit: cover;
+	height: 100%;
+}
+
+.error-add-photo{
+	display: none;
+	padding: 5px;
+	margin-top: 5px;
+}
+
+.error-form{
+	display: none;
+	padding: 10px;
 }
 /*Style provisoire*/
 
