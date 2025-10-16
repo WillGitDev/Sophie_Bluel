@@ -3,11 +3,11 @@ import {getWorks, deleteWorksById} from '../api/api.js';
 /**
  * Affiche dynamiquement les travaux. Si aucun paramètre de catégorie n'est
  * spécifié, tous les travaux sont affichés.
- * 
- * @param {string} [category="all"] Nom de la catégorie à filtrer. Si aucune valeur n'est fournie tous les travaux sont affichés.
- * @param {HTMLElement} container Le container qui doit afficher les travaux.
- * @param {boolean} isFigCaption La valeur true affiche une figcaption avec le titre sinon n'affiche pas de figcaption.
- * @param {boolean} isTrashLogo La valeur true rajoute un logo de corbeille dans la balise figure. 
+ *
+ * @param {string} [category="all"] Nom de la catégorie à filtrer. Si aucune valeur n'est fournie, tous les travaux sont affichés.
+ * @param {HTMLElement} container Le conteneur qui doit afficher les travaux.
+ * @param {boolean} isFigCaption Si true, ajoute une figcaption avec le titre ; sinon n'ajoute pas de figcaption.
+ * @param {boolean} isTrashLogo Si true, ajoute une icône de corbeille dans la balise figure.
  * @returns {Promise<void>} Ne retourne rien, mais modifie le DOM.
  */
 export async function createGallery(container, category = "all", isFigCaption = true, isTrashLogo = false){
@@ -54,11 +54,12 @@ export async function createGallery(container, category = "all", isFigCaption = 
 };
 
 /**
- * Supprime l'image et si elle n'est pas supprimer affiche un message d'erreur.
- * @param {event} e 
+ * Supprime l'image ; si la suppression échoue, affiche un message d'erreur.
+ * @param {Event} e
  */
 async function handleDeleteClick(e){
     const galleryModal = document.getElementById("gallery-content-modal");
+    const galleryIndex = document.querySelector(".gallery");
     const errorMessage = document.querySelector(".error-gallery");
     errorMessage.style.display = "none";
     const target = e.currentTarget.getAttribute("data-id");
@@ -69,6 +70,7 @@ async function handleDeleteClick(e){
         
     }else{
         await createGallery(galleryModal, "all", false, true);
+        await createGallery(galleryIndex);
     }
     
 }

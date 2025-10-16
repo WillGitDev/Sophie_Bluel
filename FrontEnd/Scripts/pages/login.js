@@ -20,9 +20,9 @@ const formLogin = document.querySelector("#login form");
     });
 
 /**
- * Gestion de la réponse pour la tentative de connexion.
- * Si l'authentification est réussie, cette fonction stocke le token et redirige l'utilisateur vers la page d'acceuil.
- * @param {Array<{isAuthenticated: boolean, token: string}>} connectionInfo 
+ * Gestion de la réponse suite à la tentative de connexion.
+ * Si l'authentification réussit, cette fonction stocke le token et redirige l'utilisateur vers la page d'accueil.
+ * @param {{isAuthenticated: boolean, token: string}} connectionInfo
  */
 function validateConnection(connectionInfo){
     const errorMessage = document.getElementsByClassName("error-message")[0];

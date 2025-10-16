@@ -2,9 +2,10 @@ import {createGallery} from '../components/gallery.js';
 import * as api from '../api/api.js';
 
 let modal = null;
-let previouslyFocusedElement = null; // Pour sauvegarder l'élément actif.
+let previouslyFocusedElement = null; // Pour sauvegarder l'élément qui avait le focus.
 document.querySelector(".js-modal").addEventListener("click", openModal);
-const galleryContainer = document.getElementById("gallery-content-modal");
+const galleryContainer = document.querySelector(".gallery");
+const galleryContainerModal = document.getElementById("gallery-content-modal");
 const galleryModal = document.getElementById("modal-gallery");
 const addWorkModal = document.getElementById("modal-add-work");
 const select = document.getElementById("category");
@@ -14,9 +15,12 @@ const inputImg = document.getElementById("input-img");
 const buttonAddImg = document.getElementById("add-photo");
 const formAddPhoto = document.getElementById("form-add-photo");
 const errorAddPhoto = document.querySelector(".error-add-photo");
-const focusableSelector = 'button, a, input, textarea, select';
+const focusableSelector = "button, a, textarea, select, input:not(#input-img)";
 const buttonValidateWork = document.getElementById("button-add-work");
 const errorForm = document.querySelector(".error-form");
+const errorModalGallery = document.querySelector(".error-gallery");
+const xmarkButton = document.querySelector(".button-close");
+
 let fileAddPhoto = null;
 let focusables = [];
 
@@ -32,33 +36,30 @@ const ModalView = {
 };
 
 /**
- * Affiche la modale en modifiant les différents style CSS et attribut du HTML.
- * @param {event} e 
+ * Affiche la modale en modifiant les styles CSS et les attributs HTML.
+ * @param {Event} e
  */
-export function openModal(e){
+function openModal(e){
     e.preventDefault();
-
     showModal(ModalView.GALLERY);
     previouslyFocusedElement = document.activeElement;
     modal = document.querySelector(e.target.getAttribute("href"));
-    focusables = Array.from(modal.querySelectorAll(focusableSelector));
     modal.style.display = "flex";
     modal.setAttribute("aria-hidden", "false");
     modal.setAttribute("aria-modal", "true");
     modal.addEventListener("click", closeModalOnClickOutside);
     modal.querySelector(".button-close").addEventListener("click", closeModal);
     modal.querySelector(".modal-wrapper").addEventListener("click", stopModalPropagation);
-    createGallery(galleryContainer, "all", false, true);
-    focusables[0].focus();
+    createGallery(galleryContainerModal, "all", false, true);
     viewContainerAddPhoto(PhotoView.SELECT);
 }
 
 /**
- * Masque la modale en modifiant les différents styles CSS et attribut du HTML.
- * @param {event} e 
- * @returns 
+ * Masque la modale en modifiant les styles CSS et les attributs HTML.
+ * @param {Event} e
+ * @returns {void}
  */
-export function closeModal(e){
+function closeModal(e){
     if(modal === null) return;
     if(previouslyFocusedElement){
         previouslyFocusedElement.focus();
@@ -69,9 +70,10 @@ export function closeModal(e){
     modal.querySelector(".button-close").removeEventListener("click", closeModal);
     modal.querySelector(".modal-wrapper").removeEventListener("click", stopModalPropagation);
     modal = null;
-    resetFormAddPhoto();
+    errorModalGallery.style.display = "none";
     errorAddPhoto.style.display = "none";
     errorForm.style.display = "none";
+    resetFormAddPhoto();
 }
 
 function stopModalPropagation(e){
@@ -79,9 +81,9 @@ function stopModalPropagation(e){
 };
 
 /**
- * Gère la navigation au clavier à l'intérieur de la modale.
- * Empêche le focus de sortir de la modale et le fait passer à l'élément suivant ou précédent.
- * @param {event} e 
+ * Gère la navigation clavier à l'intérieur de la modale.
+ * Empêche le focus de sortir de la modale et le déplace vers l'élément suivant ou précédent.
+ * @param {KeyboardEvent} e
  */
 function focusInModal(e){
     e.preventDefault();
@@ -121,9 +123,8 @@ function closeModalOnClickOutside(e){
 };
 
 /**
- * Attache un évènement au bouton ajouter une photo de la modale de la galerie
- * quand le bouton est cliquer affiche la vue qui permet d'ajouter une photo et génère
- * la liste des catégories.
+ * Attache un événement au bouton "Ajouter une photo" de la modale galerie.
+ * Au clic, affiche la vue d'ajout de photo et génère la liste des catégories.
  */
 async function buttonAddPicture(){
     const buttonAddPicture = document.getElementById("add-picture");
@@ -137,7 +138,7 @@ async function buttonAddPicture(){
 async function generateListCategorie(){
     select.innerHTML = "";
     const categories = await api.getCategories();
-    const option = document.createElement("option");// A voir si il faut laisser une option vide pour respecter la maquette.
+    const option = document.createElement("option");
     select.appendChild(option);
     categories.forEach(element => {
         const option = document.createElement("option");
@@ -148,9 +149,8 @@ async function generateListCategorie(){
 };
 
 /**
- * Attache un évènement à la flèche retour de la modal ajout de photo,
- * quand l'élément flèche est cliquer ouvre la modal galerie, efface
- * le formulaire et réinitialise la vue pour l'ajout de la photo.
+ * Attache un événement à la flèche de retour de la modale d'ajout de photo.
+ * Au clic, ouvre la modale galerie, efface le formulaire et réinitialise la vue d'ajout.
  */
 function goBackToGallery(){
     const buttonReturn = document.querySelector(".button-return");
@@ -161,30 +161,36 @@ function goBackToGallery(){
         viewContainerAddPhoto(PhotoView.SELECT);
         errorAddPhoto.style.display = "none";
         errorForm.style.display = "none";
+        errorModalGallery.style.display = "none";
     });
 };
 
 /**
- * Affiche une vue spécifique de la modale et cache les autres.
+ * Affiche une vue spécifique de la modale et cache les autres. Soit la vue galerie ou la vue d'ajout d'un travail.
  * @param {HTLMElement} viewToShow  La vue de la modale à afficher.
  */
 function showModal(viewName){
     galleryModal.style.display = "none";
     addWorkModal.style.display = "none";
-
+    
     switch(viewName){
         case ModalView.GALLERY:
             galleryModal.style.display = "flex";
+            focusables = Array.from(galleryModal.querySelectorAll(focusableSelector));
+            focusables.splice(0, 0, xmarkButton);
+            focusables[0].focus();
             break;
         case ModalView.ADDWORK:
             addWorkModal.style.display = "flex";
+            focusables = Array.from(addWorkModal.querySelectorAll(focusableSelector));
+            focusables.splice(1, 0, xmarkButton);
     };
 };
 
 /**
- * Récupère l'image pour l'afficher.
+ * Récupère les éléments du formulaire et l'envoie sur le serveur.
  */
-function importImg(){
+function setupAddWorkForm(){
     buttonAddImg.addEventListener("click", () => {
         inputImg.click();
     });
@@ -213,21 +219,31 @@ function importImg(){
         else if (select === ""){
             errorForm.innerHTML = "Veuillez renseigner une catégorie";
             errorForm.style.display = "inline";
-        }
+        };
         
         const formData = new FormData();
         formData.append("image", fileAddPhoto);
         formData.append("title", title);
         formData.append("category", select);
 
-        console.log("Contenu du formData :");
         for(let [key, value] of formData.entries()){
             console.log(key + " " + value);
-        }
+        };
 
         const token = window.sessionStorage.getItem("Bearer");
 
-        await api.addWork(token, formData);
+        const response = await api.addWork(token, formData);
+        
+        if(response){
+            createGallery(galleryContainer);
+            createGallery(galleryContainerModal, "all", false, true);
+            closeModal();
+        }
+        else{
+            errorForm.innerHTML = "Erreur lors de l'envoie";
+            errorForm.style.display = "inline";
+        }
+
    });
 };
 
@@ -245,13 +261,15 @@ function checkImg(file){
             errorAddPhoto.style.display = "inline";
             inputImg.value = "";
             return;
-        }
+            };
+
             if(file.size > maxSize){
                 errorAddPhoto.innerHTML = "Le fichier est trop volumineux, la taille maximale est de 4 Mo.";
                 errorAddPhoto.style.display = "inline";
                 inputImg.value = "";
                 return;
-            }
+            };
+
             const imageUrl = URL.createObjectURL(file);
             const imagePreview = document.createElement("img");
             imagePreview.setAttribute("id", "photoContainer");
@@ -265,12 +283,12 @@ function checkImg(file){
         else{
             errorAddPhoto.innerHTML = "Aucun fichier n'est sélectionner";
             errorAddPhoto.style.display = "inline";
-        }
-}
+        };
+};
 
 
 /**
- * Affiche la vue en fonction de la valeur passer en paramétre.
+ * Affiche la vue en fonction de la valeur passer en paramétre, entre l'élément qui sélectionne une photo ou une miniature de la photo
  * @param {string} viewName La vue à afficher (PhotoView.SELECT pour la vue de sélection de la photo ou PhotoView.PREVIEW pour la vue d'affichage de la photo sélectionner)
  */
 function viewContainerAddPhoto(viewName){
@@ -299,7 +317,7 @@ function resetFormAddPhoto(){
     containerPhotoSelected.innerHTML = "";
     inputImg.value = "";
     fileAddPhoto = null;
-}
+};
 
 /**
  * Vérifie si le champ est correctement complété.
@@ -308,6 +326,6 @@ function checkFormAddPhoto(){
     
 }
 
-importImg();
+setupAddWorkForm();
 goBackToGallery();
 buttonAddPicture();

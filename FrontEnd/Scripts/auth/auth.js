@@ -1,7 +1,6 @@
 /**
- * Vérifie si l'utilisateur à un token dans la session storage
+ * Vérifie si l'utilisateur a un token dans le sessionStorage
  * et adapte le style de la page en conséquence.
- * 
  */
 function userConnection(){
     const token = sessionStorage.getItem("Bearer");
@@ -27,4 +26,6 @@ function userConnection(){
 }
 
 userConnection();
+window.addEventListener("storage", userConnection);
+
 

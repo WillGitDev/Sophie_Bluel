@@ -5,8 +5,8 @@ const apiDeleteWork = "http://localhost:5678/api/works/";
 const apiAddWork = "http://localhost:5678/api/works";
 
 /**
- * Récupère tous les travaux de l'architecte
- * 
+ * Récupère tous les travaux de l'architecte.
+ *
  * @returns {Promise<Array<{id: number, title: string, imageUrl: string, category: object, userId: number}>>}
  */
 export async function getWorks(){
@@ -21,9 +21,9 @@ export async function getWorks(){
 };
 
 /**
- * Récupère les catégories des travaux
- * 
- * @returns {Promise<Array<{id: number, name: string}>>} 
+ * Récupère les catégories des travaux.
+ *
+ * @returns {Promise<Array<{id: number, name: string}>>}
  */
 export async function getCategories(){
     try{
@@ -38,9 +38,10 @@ export async function getCategories(){
 
 
 /**
- * Reçoit en paramètres l'email et le password de l'utilisateur pour vérifier avec la base de donnée si l'utilisateur existe.
- * @param {Array<{email: string, password: string}>} loginInfo 
- * @returns {Array<{isAuthenticated: boolean, token: string}>}  retourne un boolean pour déterminer si la personne est connecter ou non et un token si la personne est connecté.
+ * Envoie l'email et le mot de passe de l'utilisateur pour vérifier
+ * dans la base de données si l'utilisateur existe.
+ * @param {{email: string, password: string}} loginInfo
+ * @returns {{isAuthenticated: boolean, token: string}} Retourne un booléen indiquant si la connexion a réussi et un token si l'utilisateur est authentifié.
  */
 export async function loginConnection(loginInfo){
     try{
@@ -58,13 +59,12 @@ export async function loginConnection(loginInfo){
 }
 
 /**
- * Supprime l'élément avec l'id et un token valide,
- * si la suppression à échoué la fonction retourne un
- * booléan(true: réussie, false: échouer)
- * 
- * @param {Number} id l'id du travail à supprimer
- * @param {String} token le token pour la connexion
- * @returns 
+ * Supprime l'élément identifié par son id en utilisant un token valide.
+ * Si la suppression échoue, la fonction retourne false.
+ *
+ * @param {number} id Identifiant du travail à supprimer.
+ * @param {string} token Token d'authentification.
+ * @returns {boolean} Retourne true si l'élément a été supprimé, false sinon.
  */
 export async function deleteWorksById(id, token){
     try{
@@ -83,9 +83,10 @@ export async function deleteWorksById(id, token){
 
 /**
  * Ajoute un nouveau travail de l'architecte.
- * 
- * @param {string} token le token dans session storage.
- * @param {FormData} formData le formData contenant toute les informations sur le travail à ajouter.
+ *
+ * @param {string} token Le token stocké en session.
+ * @param {FormData} formData Le FormData contenant les informations du travail à ajouter.
+ * @returns {boolean} Retourne true si l'élément a bien été ajouté, false sinon.
  */
 export async function addWork(token, formData){
     try{
@@ -97,6 +98,7 @@ export async function addWork(token, formData){
             },
             body: formData
         });
+        return response.ok;
     }catch(error){
         console.error("Erreur : ", error);
     };

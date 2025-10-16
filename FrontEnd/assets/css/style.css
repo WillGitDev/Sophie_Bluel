@@ -426,8 +426,11 @@ margin: auto;
 }
 
 .error-gallery{
+	display: none;
 	color: black;
 	text-align: center;
+	margin-top: 5px;
+	padding: 5px;
 }
 
 /*modal add picture*/
@@ -531,9 +534,4 @@ margin: auto;
 .error-form{
 	display: none;
 	padding: 10px;
-}
-/*Style provisoire*/
-
-*:focus{
-	box-shadow: 0 0 20px rgb(19, 119, 49);		
 }
