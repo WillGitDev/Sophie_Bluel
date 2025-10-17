@@ -166,8 +166,8 @@ function goBackToGallery(){
 };
 
 /**
- * Affiche une vue spécifique de la modale et cache les autres. Soit la vue galerie ou la vue d'ajout d'un travail.
- * @param {HTLMElement} viewToShow  La vue de la modale à afficher.
+ * Affiche une vue spécifique de la modale et masque les autres (galerie ou ajout d'un travail).
+ * @param {string} viewName Nom de la vue à afficher.
  */
 function showModal(viewName){
     galleryModal.style.display = "none";
@@ -208,16 +208,19 @@ function setupAddWorkForm(){
         
 
         if(fileAddPhoto === null){
-            errorForm.innerHTML = "Veuillez sélectionner une photo";
-            errorForm.style.display = "inline";
+                    errorForm.innerHTML = "Veuillez sélectionner une photo.";
+                    errorForm.style.display = "inline";
+                    return; // stoppe l'envoi si pas de photo
         }
         else if(title === ""){
-            errorForm.innerHTML = "Veuillez renseigner un titre";
-            errorForm.style.display = "inline";
+                    errorForm.innerHTML = "Veuillez renseigner un titre.";
+                    errorForm.style.display = "inline";
+                    return; // stoppe l'envoi si pas de titre
         }
         else if (select === ""){
-            errorForm.innerHTML = "Veuillez renseigner une catégorie";
-            errorForm.style.display = "inline";
+                    errorForm.innerHTML = "Veuillez renseigner une catégorie.";
+                    errorForm.style.display = "inline";
+                    return; // stoppe l'envoi si pas de catégorie
         };
         
         const formData = new FormData();
@@ -228,14 +231,14 @@ function setupAddWorkForm(){
         const token = window.sessionStorage.getItem("Bearer");
 
         const response = await api.addWork(token, formData);
-        
+
         if(response){
             createGallery(galleryContainer);
             createGallery(galleryContainerModal, "all", false, true);
             closeModal();
         }
         else{
-            errorForm.innerHTML = "Erreur lors de l'envoie";
+            errorForm.innerHTML = "Erreur lors de l'envoi.";
             errorForm.style.display = "inline";
         }
 
@@ -252,14 +255,14 @@ function checkImg(file){
     const maxSize = 4194304; //En octets
     if(file){
             if(file.type !== "image/png" && file.type !== "image/jpeg"){
-            errorAddPhoto.innerHTML = "Le fichier sélectionner ne correspond au format attendu (jpg, png)";
+            errorAddPhoto.innerHTML = "Le fichier sélectionné ne correspond pas au format attendu (jpg, png).";
             errorAddPhoto.style.display = "inline";
             inputImg.value = "";
             return;
             };
 
             if(file.size > maxSize){
-                errorAddPhoto.innerHTML = "Le fichier est trop volumineux, la taille maximale est de 4 Mo.";
+                errorAddPhoto.innerHTML = "Le fichier est trop volumineux ; la taille maximale est de 4 Mo.";
                 errorAddPhoto.style.display = "inline";
                 inputImg.value = "";
                 return;
@@ -276,7 +279,7 @@ function checkImg(file){
             viewContainerAddPhoto(PhotoView.PREVIEW);
         }
         else{
-            errorAddPhoto.innerHTML = "Aucun fichier n'est sélectionner";
+            errorAddPhoto.innerHTML = "Aucun fichier n'est sélectionné.";
             errorAddPhoto.style.display = "inline";
         };
 };

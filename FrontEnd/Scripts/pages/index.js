@@ -59,9 +59,9 @@ async function createButtonCategories(){
 };
 
 /**
- * Permet d'effacer la class button-active sur tous les boutons du filtre
- * et d'appliquer cette même classe uniquement sur le bouton sélectionner.
- * @param {event} event 
+ * Permet de retirer la classe `button-active` sur tous les boutons du filtre
+ * et de l'appliquer uniquement sur le bouton sélectionné.
+ * @param {Event} event
  */
 function classActiveButton(event){
     const buttonFilter = document.querySelectorAll(".button-filter");
