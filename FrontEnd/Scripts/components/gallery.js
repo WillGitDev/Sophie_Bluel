@@ -4,13 +4,14 @@ import {getWorks, deleteWorksById} from '../api/api.js';
  * Affiche dynamiquement les travaux. Si aucun paramètre de catégorie n'est
  * spécifié, tous les travaux sont affichés.
  *
- * @param {string} [category="all"] Nom de la catégorie à filtrer. Si aucune valeur n'est fournie, tous les travaux sont affichés.
  * @param {HTMLElement} container Le conteneur qui doit afficher les travaux.
- * @param {boolean} isFigCaption Si true, ajoute une figcaption avec le titre ; sinon n'ajoute pas de figcaption.
- * @param {boolean} isTrashLogo Si true, ajoute une icône de corbeille dans la balise figure.
+ * @param {string} [category="all"] Nom de la catégorie à filtrer. Si aucune valeur n'est fournie, tous les travaux sont affichés.
+ * @param {boolean} [isFigCaption=true] Si true, ajoute une figcaption avec le titre ; sinon n'ajoute pas de figcaption.
+ * @param {boolean} [isTrashLogo=false] Si true, ajoute une icône de corbeille dans la balise figure.
+ * @param {string} [sort="none"] Mode de tri : "none" | "asc" | "desc" (tri alphabétique sur le titre).
  * @returns {Promise<void>} Ne retourne rien, mais modifie le DOM.
  */
-export async function createGallery(container, category = "all", isFigCaption = true, isTrashLogo = false){
+export async function createGallery(container, category = "all", isFigCaption = true, isTrashLogo = false, sort = "none"){
     container.innerHTML = "";
     const works = await getWorks();
     let worksFilter = [];
@@ -25,6 +26,16 @@ export async function createGallery(container, category = "all", isFigCaption = 
     else{
         worksFilter = [...works];
     };
+
+    // --- Tri alphabétique optionnel ---
+    // sort === 'asc'  -> tri A -> Z
+    // sort === 'desc' -> tri Z -> A
+    if(sort === "asc"){
+        worksFilter.sort((a, b) => (a.title || "").localeCompare(b.title || "", 'fr', {sensitivity: 'base'}));
+    }
+    else if(sort === "desc"){
+        worksFilter.sort((a, b) => (b.title || "").localeCompare(a.title || "", 'fr', {sensitivity: 'base'}));
+    }
 
     for(let i=0; i < worksFilter.length; i++){       
         const work = worksFilter[i];

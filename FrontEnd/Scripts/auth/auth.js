@@ -6,6 +6,7 @@ function userConnection(){
     const token = sessionStorage.getItem("Bearer");
     const authInfo = document.getElementById("auth-indicator");
     const filterContainer = document.getElementsByClassName("filter")[0];
+    const sortContainer = document.getElementsByClassName("sort-container")[0];
     const editButton = document.getElementById("edit");
     const logout = document.getElementById("link-logout");
     const login = document.getElementById("link-login");
@@ -13,12 +14,15 @@ function userConnection(){
     if(token){
         authInfo.style.display = "flex";
         filterContainer.style.display = "none";
+        if(sortContainer) sortContainer.style.display = "none";
         editButton.style.display = "block";
         logout.style.display = "inline";
         login.style.display = "none";
     }
     else{
         authInfo.style.display = "none";
+        if(filterContainer) filterContainer.style.display = "flex";
+        if(sortContainer) sortContainer.style.display = "flex";
         editButton.style.display = "none";
         logout.style.display = "none";
         login.style.display = "inline";

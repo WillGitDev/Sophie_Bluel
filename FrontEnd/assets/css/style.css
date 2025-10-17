@@ -202,6 +202,37 @@ input[type="submit"], button{
 	color: white;
 }
 
+/* --- Styles pour le contrôle de tri (select) --- */
+.sort-container{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px; /* légèrement plus proche de la galerie */
+}
+
+.sort-container select{
+	/* Apparence similaire aux boutons de filtre */
+	height: 40px;
+	width: 180px;
+	background-color: white;
+	color: #1D6154;
+	border: none;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 1em;
+	padding: 0 18px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+/* Optionnel : un petit ajustement pour l'icône de flèche native sur certains navigateurs */
+.sort-container select::-ms-expand{
+	display: none;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;

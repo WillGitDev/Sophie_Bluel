@@ -198,7 +198,6 @@ function setupAddWorkForm(){
     inputImg.addEventListener("change", (e) => {
         const file = e.target.files[0];
         fileAddPhoto = file;
-        console.log(file);
         checkImg(file);
     });
     
@@ -225,10 +224,6 @@ function setupAddWorkForm(){
         formData.append("image", fileAddPhoto);
         formData.append("title", title);
         formData.append("category", select);
-
-        for(let [key, value] of formData.entries()){
-            console.log(key + " " + value);
-        };
 
         const token = window.sessionStorage.getItem("Bearer");
 
